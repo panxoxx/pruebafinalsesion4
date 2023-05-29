@@ -21,8 +21,11 @@ document.getElementById("botonRegistrar").addEventListener("click",function(){
 })
 
 
+
+
+
 document.getElementById("botonGasto").addEventListener("click",function(){
-alert("hizo click")
+
 
 let nombreGasto = document.getElementById("nombredelgasto").value;
 let cantidadGasto =Number(document.getElementById("cantidaddelgasto").value);
@@ -30,10 +33,9 @@ let gasto={nombre:nombreGasto,precio:cantidadGasto}
 
 gastos.push(gasto)
 
-console.log(gastos)
-
 calculargastos();
 inyectarGastos(gastos);
+
 
 })
 
@@ -60,14 +62,23 @@ function inyectarGastos(data){
  
 let cuerpotabla = document.getElementById("parteabajo")
     cuerpotabla.innerHTML=""
-data.forEach(item1=>{
+data.forEach((item1,index)=>{
     cuerpotabla.innerHTML +=`   
      <tr>
                     <td>${item1.nombre}</td>
-                    <td>${item1.precio}</td>
+                    <td>$${item1.precio}</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="eliminarGasto(${index})"><i class="fa-solid fa-trash-can"></i></button></td>
                      
     </tr>
     `
 
 })
 }
+
+function eliminarGasto(index) {
+    gastos.splice(index, 1);
+    
+    calculargastos(); 
+    inyectarGastos(gastos); 
+  }
+  
